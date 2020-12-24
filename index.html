@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Vue Prac</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <style>
+      span.complete {
+        text-decoration: line-through;
+        color:green;
+      }
+      span.incomplete{
+          color: tomato;
+      }
+    </style>
+  </head>
+  <body style="background: aliceblue">
+    <div id="app" class="container">
+      <h1 class="text-center">{{message}}</h1>
+      <span v-if="visible">Visible</span>
+      <div  class="card mb-2" v-for="(item, index) in items" :key="index">
+        <div  class="card-body">
+          <span :class="{complete: item.complete, incomplete: ! item.complete}">
+            <p style="cursor: pointer;" @click="toggleItem(item)">{{index+1}}. {{item.text}}</p>
+          </span>
+        </div>
+      </div>
+      <p>{{count}}</p>
+      <button @click="addOne" class="btn btn-success">+</button>
+      <button @click="subtractOne" class="btn btn-info">-</button>
+      <input type="text" v-model="count">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          message: "Vue Practice",
+          visible: false,
+          items: [
+            { text: "Learn vue", complete: false },
+            { text: "complete vue", complete: false },
+            { text: "Read vue", complete: true },
+            { text: "Drink milk", complete: false },
+          ],
+          count: 0
+        },
+        methods:{
+            toggleItem(item){
+                return item.complete = !item.complete
+            },
+            addOne(){
+                this.count++
+            },
+            subtractOne(){
+                this.count > 0 ? this.count-- : ''
+            },
+        }
+      });
+    </script>
+  </body>
+</html>
